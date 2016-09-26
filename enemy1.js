@@ -1,63 +1,51 @@
-var Enemy = function (x, y) 
+var MAX_LIVES = 3;
+
+var sfxWall;
+sfxWall = new Howl(
 {
-    this.sprite = new Sprite("enemy1.png");
-    this.sprite.buildAnimation(2, 1, 88, 94, 0.3, [0, 1]);
-    this.sprite.setAnimationOffset(0, -35, -40);
+    urls: ["wall.wav"],
+    buffer: true,
+    volume: 0.3,
+});
 
-    this.position = new Vector2();
-    this.position.set(x, y);
+var Enemy1 = function() 
+{	
+	this.image = document.createElement("img");
+	this.x = canvas.width/2;
+	this.y = canvas.height/2; 	
+	this.width = 159;
+	this.height = 163;	
 
-    this.velocity = new Vector2();
+	this.image.src = "enemy1.png";   
+};
 
-    this.moveRight = true;
-    this.pause = 0;
+Enemy1.prototype.update = function(deltaTime)
+{		
+	if( typeof(this.rotation) == "undefined" )
+		this.rotation = 0;				// hang on, where did this variable come from!
+
+	if(keyboard.isKeyDown(keyboard.KEY_SPACE) == true)
+    {
+        this.rotation -= deltaTime;
+    }
+    else
+    {
+        this.rotation += deltaTime;
+    }
 }
-Enemy.prototype.update = function (dt) 
+Enemy1.prototype.draw = function () 
 {
-    this.sprite.update(dt);
-    if (this.pause > 0) 
-    {
-        this.pause -= dt;
-    }
-    else 
-    {
-        var ddx = 0; // acceleration
-        var tx = pixelToTile(this.position.x);
-        var ty = pixelToTile(this.position.y);
-        var nx = (this.position.x) % TILE; // true if enemy overlaps right
-        var ny = (this.position.y) % TILE; // true if enemy overlaps below
-        var cell = cellAtTileCoord(LAYER_PLATFORMS, tx, ty);
-        var cellright = cellAtTileCoord(LAYER_PLATFORMS, tx + 1, ty);
-        var celldown = cellAtTileCoord(LAYER_PLATFORMS, tx, ty + 1);
-        var celldiag = cellAtTileCoord(LAYER_PLATFORMS, tx + 1, ty + 1);
-        if (this.moveRight) 
-        {
-            if (celldiag && !cellright) 
-            {
-                ddx = ddx + ENEMY_ACCEL; // enemy wants to go right
-            }
-            else 
-            {
-                this.velocity.x = 0;
-                this.moveRight = false;
-                this.pause = 0.5;
-            }
-        }
-        if (!this.moveRight) 
-        {
-            if (celldown && !cell) 
-            {
-                ddx = ddx - ENEMY_ACCEL; // enemy wants to go left
-            }
-            else 
-            {
-                this.velocity.x = 0;
-                this.moveRight = true;
-                this.pause = 0.5;
-            }
-        }
-        this.position.x = Math.floor(this.position.x + (dt * this.velocity.x));
-        this.velocity.x = bound(this.velocity.x + (dt * ddx),
-            -ENEMY_MAXDX, ENEMY_MAXDX);
-    }
+    //context.drawImage(this.image,this.position.x - worldOffsetX, this.position.y);
+    //this.sprite.draw(context, this.position.x -worldOffsetX, this.position.y);
+    context.save();
+    context.translate(this.x, this.y);
+    context.rotate(this.rotation);
+    context.drawImage(this.image, -this.width / 2, -this.height / 2);
+    context.restore();
+
+    //var tx = pixelToTile(this.position.x);
+    //var ty = pixelToTile(this.position.y);
+
+    //context.fillRect(epixel(tx,tileToPixel(tx)))
+
 }

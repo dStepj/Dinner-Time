@@ -1,22 +1,3 @@
-//Enemy1 inprogress
-//Enemy Layer costant
-var ENEMY_MAXDX = METER * 5;
-var ENEMY_ACCEL = ENEMY_MAXDX * 2;
-
-var enemies = [];
-
-var ENEMY_MAXDX = METER * 5;
-var ENEMY_ACCEL = ENEMY_MAXDX * 2;
-var enemies = [];
-var LAYER_COUNT = 3;
-var LAYER_BACKGOUND = 0;
-var LAYER_PLATFORMS = 1;
-var LAYER_LADDERS = 2;
-var LAYER_OBJECT_ENEMIES = 3;
-var LAYER_OBJECT_TRIGGERS = 4;
-//................................
-
-
 var canvas = document.getElementById("gameCanvas");
 var context = canvas.getContext("2d");
 
@@ -63,7 +44,9 @@ var TILESET_COUNT_Y = 20;
 var tileset = document.createElement("img");
 tileset.src = "Tileset_Basic.png";
 
-var enemy = new Enemy(); //>I add this by Rene
+//var Enemy1 = new enemy1(); //>I add this by Rene
+var enemy = document.createElement("img");
+enemy.src = "enemy1.png";
 
 var METER = TILE;
 var GRAVITY = METER * 9.8 *6;
@@ -85,6 +68,27 @@ hero.src = "hero.png";
 
 var player = new Player();
 var keyboard = new Keyboard();
+
+//Enemy1 inprogress
+//Enemy Layer costant
+var ENEMY_MAXDX = METER * 5;
+var ENEMY_ACCEL = ENEMY_MAXDX * 2;
+
+var enemies = [];
+
+var ENEMY_MAXDX = METER * 5;
+var ENEMY_ACCEL = ENEMY_MAXDX * 2;
+var enemies = [];
+var LAYER_COUNT = 3;
+var LAYER_BACKGOUND = 0;
+var LAYER_PLATFORMS = 1;
+var LAYER_LADDERS = 2;
+
+var LAYER_OBJECT_ENEMIES = 3;
+var LAYER_OBJECT_TRIGGERS = 4;
+//................................By Rene
+
+
 
 var cells = [];
 function initialize()
@@ -168,7 +172,20 @@ function run()
 	
 	player.update(deltaTime);
 	player.draw();
-		
+	enemy.update(deltaTime);
+	enemy.draw();
+	for (var i = 0; i < enemies.length; i++) //> i add this Rene
+	{
+		enemies[i].update(deltaTime);
+		enemy.update(deltaTime);
+		enemy.draw();
+
+		for (var i = o; i< enemies.lenght; i++) 
+		{
+			enemies[i].update(deltaTime);
+			enemies[i].draw();
+		}
+	}
 	// update the frame counter 
 	fpsTime += deltaTime;
 	fpsCount++;
@@ -178,12 +195,6 @@ function run()
 		fps = fpsCount;
 		fpsCount = 0;
 	}
-
-	for (var i = 0; i < enemies.length; i++) //> i add this Rene
-	{
-		enemies[i].update(deltaTime);
-	}	
-
 //initialize();
 		
 	// draw the FPS
