@@ -1,3 +1,22 @@
+//Enemy1 inprogress
+//Enemy Layer costant
+var ENEMY_MAXDX = METER * 5;
+var ENEMY_ACCEL = ENEMY_MAXDX * 2;
+
+var enemies = [];
+
+var ENEMY_MAXDX = METER * 5;
+var ENEMY_ACCEL = ENEMY_MAXDX * 2;
+var enemies = [];
+var LAYER_COUNT = 3;
+var LAYER_BACKGOUND = 0;
+var LAYER_PLATFORMS = 1;
+var LAYER_LADDERS = 2;
+var LAYER_OBJECT_ENEMIES = 3;
+var LAYER_OBJECT_TRIGGERS = 4;
+//................................
+
+
 var canvas = document.getElementById("gameCanvas");
 var context = canvas.getContext("2d");
 
@@ -44,6 +63,8 @@ var TILESET_COUNT_Y = 20;
 var tileset = document.createElement("img");
 tileset.src = "Tileset_Basic.png";
 
+var enemy = new Enemy(); //>I add this by Rene
+
 var METER = TILE;
 var GRAVITY = METER * 9.8 *6;
 var MAXDX = METER * 10;
@@ -65,7 +86,7 @@ hero.src = "hero.png";
 var player = new Player();
 var keyboard = new Keyboard();
 
-/*var cells = [];
+var cells = [];
 function initialize()
 {
 	for(var layerIdx = 0; layerIdx < LAYER_COUNT; layerIdx++) 
@@ -88,23 +109,38 @@ function initialize()
 				{
 					cells[playerIdx][y][x] = 0;
 				}
-				idx++;
-			}
+				// add enemies
+					idx = 0;
+					for (var y = 0; y < level1.layers[LAYER_OBJECT_ENEMIES].height; y++) 
+					{
+						for (var x = 0; x < level1.layers[LAYER_OBJECT_ENEMIES].width; x++) 
+						{
+							if (level1.layers[LAYER_OBJECT_ENEMIES].data[idx] != 0) 
+							{
+								var px = tileToPixel(x);
+								var py = tileToPixel(y);
+								var e = new Enemy(px, py);
+								enemies.push(e);
+							}
+							idx++;
+						}
+					}
+				}
 		}
 	}
 }
-
+	
 function cellAtpixelCoord(layer, x,y)
 {
 
 }
 
-/*function drawMap()
+function drawMap()
 {
 	console.log("Is the map drawing?");
 	for(var layerIdx=0; layerIdx<LAYER_COUNT; layerIdx++)
 	{
-		var idx = 0;
+		var idx = 0;		// i add this *Rene
 		for( var y = 0; y <level1.layers[layerIdx].height; y++)
 		{
 			for( var x = 0; x < level1.layers[layerIdx].width; x++)
@@ -120,7 +156,7 @@ function cellAtpixelCoord(layer, x,y)
 			}
 		}
 	}
-}*/
+}
 
 function run()
 {
@@ -141,7 +177,12 @@ function run()
 		fpsTime -= 1;
 		fps = fpsCount;
 		fpsCount = 0;
-	}		
+	}
+
+	for (var i = 0; i < enemies.length; i++) //> i add this Rene
+	{
+		enemies[i].update(deltaTime);
+	}	
 
 //initialize();
 		
@@ -157,20 +198,30 @@ function run()
 
 // This code will set up the framework so that the 'run' function is called 60 times per second.
 // We have a some options to fall back on in case the browser doesn't support our preferred method.
-(function() {
+(function() 
+{
   var onEachFrame;
-  if (window.requestAnimationFrame) {
-    onEachFrame = function(cb) {
-      var _cb = function() { cb(); window.requestAnimationFrame(_cb); }
+  if (window.requestAnimationFrame) 
+  {
+    onEachFrame = function(cb) 
+	{
+      var _cb = function() 
+	  { 
+		  cb(); window.requestAnimationFrame(_cb); 
+		}
       _cb();
     };
-  } else if (window.mozRequestAnimationFrame) {
-    onEachFrame = function(cb) {
+  } else if (window.mozRequestAnimationFrame) 
+  {
+    onEachFrame = function(cb) 
+	{
       var _cb = function() { cb(); window.mozRequestAnimationFrame(_cb); }
       _cb();
     };
-  } else {
-    onEachFrame = function(cb) {
+  } else 
+  {
+    onEachFrame = function(cb) 
+	{
       setInterval(cb, 1000 / 60);
     }
   }
