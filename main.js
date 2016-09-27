@@ -45,8 +45,10 @@ var tileset = document.createElement("img");
 tileset.src = "Tileset_Basic.png";
 
 //var Enemy1 = new enemy1(); //>I add this by Rene
-var enemy = document.createElement("img");
-enemy.src = "enemy1.png";
+//var enemy = document.createElement("img");
+//enemy.src = "enemy1.png";
+
+var enemy = new Enemy1
 
 var METER = TILE;
 var GRAVITY = METER * 9.8 *6;
