@@ -27,13 +27,6 @@ function getDeltaTime()
 	return deltaTime;
 }
 
-var STATE_SPLASH = 0;
-var STATE_GAME = 1;
-var STATE_GAMEOVER = 2;
-var STATE_WIN = 3;
-
-var gameState = STATE_SPLASH;
-
 //-------------------- Don't modify anything above here
 var SCREEN_WIDTH = canvas.width;
 var SCREEN_HEIGHT = canvas.height;
@@ -55,8 +48,6 @@ tileset.src = "Tileset_Basic.png";
 //var enemy = document.createElement("img");
 //enemy.src = "enemy1.png";
 
-var enemy = new Enemy1
-
 var METER = TILE;
 var GRAVITY = METER * 9.8 *6;
 var MAXDX = METER * 10;
@@ -75,8 +66,31 @@ var fpsTime = 0;
 var hero = document.createElement("img");
 hero.src = "hero.png";
 
+var food = [apple, burger, cake, chicken, pizza, watermelon];
+
+var apple = document.createElement("img");
+apple.src="apple.png";
+var burger = document.createElement("img");
+burger.src="burger.png";
+var cake = document.createElement("img");
+cake.src="cake.png";
+var chicken = document.createElement("img");
+chicken.src="chicken.png";
+var pizza = document.createElement("img");
+pizza.src="pizza.png";
+var watermelon = document.createElement("img");
+watermelon.src="watermelon.png";
+
+//UI ASSETS
+var livesIcon = document.createElement("img")
+livesIcon.src = "heart.png"
+var timeLabel = document.createElement("img")
+timeLabel.src = "time_label.png"
+
 var player = new Player();
 var keyboard = new Keyboard();
+var enemy = new Enemy1();
+//var food = new food();
 
 //Enemy1 inprogress
 //Enemy Layer costant
@@ -84,6 +98,12 @@ var ENEMY_MAXDX = METER * 5;
 var ENEMY_ACCEL = ENEMY_MAXDX * 2;
 
 var enemies = [];
+var food = [];
+var object = 
+{
+    image: food[Math.floor(Math.random()*food.length)]
+}
+
 
 var ENEMY_MAXDX = METER * 5;
 var ENEMY_ACCEL = ENEMY_MAXDX * 2;
@@ -171,54 +191,22 @@ function drawMap()
 	}
 }
 
-var splashTimer = 3;
-function runSplash(deltaTime) 
+function DrawUI()
 {
-	splashTimer -= deltaTime;
-	if (splashTimer <= 0) 
+	for(var i = 0; 1 < hero.lives; ++i)
 	{
-		gameState = STATE_GAME;
-		return;
+		var x = 9 + (i * livesIcon.width);
+		var y = SCREEN_HEIGHT - 405 - livesIcon.height;
+		context.drawImage(livesIcon,x,y);
 	}
-	context.fillStyle = "#000";
-	context.font = "24px Arial";
-	context.fillText("SPLASH SCREEN", 200, 240);
-}
 
-function runGame(deltaTime) 
-{
-	player.update(deltaTime);
-	player.draw();
-	enemy.update(deltaTime);
-	enemy.draw();
-	/*score += deltaTime;*/
-	for (var i = 0; i < enemies.length; i++) 
-	{
-		
-		enemies[i].update(deltaTime);
-		enemy[i].update(deltaTime);
-		enemy[i].draw();
+	var x = -32 + timeLabel.width;
+	var y = SCREEN_HEIGHT - 445 - timeLabel.height;
+	context.drawImage(timeLabel,x,y);
 
-		for (var i = o; i< enemies.lenght; i++) 
-		{
-			enemies[i].update(deltaTime);
-			enemies[i].draw();
-		}
-	}
-}
-
-function runGameOver(deltaTime) 
-{
-	context.fillStyle = "#000";
-	context.font = "24px Arial";
-	context.fillText("YOU SUCK", 200, 240);
-}
-
-function runWIN(deltaTime) 
-{
-	context.fillStyle = "#000";
-	context.font = "24px Arial";
-	context.fillText("NOT BAD NOOB", 200, 240);
+	context.fillStyle = "white";
+	context.font = "24px Impact";
+	context.fillText(countUpTimer.toFixed(2).toString(), 60, 28);
 }
 
 function run()
@@ -229,26 +217,12 @@ function run()
 	
 	var deltaTime = getDeltaTime();
 	
-	switch (gameState) 
-    {
-        case STATE_SPLASH:
-            runSplash(deltaTime);
-            break;
-        case STATE_GAME:
-            runGame(deltaTime);
-            break;
-        case STATE_GAMEOVER:
-            runGameOver(deltaTime);
-            break;
-		case STATE_WIN:
-            runWIN(deltaTime);
-            break;
-    }
-
-	/*player.update(deltaTime);
+	player.update(deltaTime);
 	player.draw();
+
 	enemy.update(deltaTime);
 	enemy.draw();
+
 	for (var i = 0; i < enemies.length; i++) //> i add this Rene
 	{
 		enemies[i].update(deltaTime);
@@ -260,7 +234,7 @@ function run()
 			enemies[i].update(deltaTime);
 			enemies[i].draw();
 		}
-	}*/
+	}
 	// update the frame counter 
 	fpsTime += deltaTime;
 	fpsCount++;
