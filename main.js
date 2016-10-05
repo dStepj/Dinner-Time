@@ -92,6 +92,8 @@ var keyboard = new Keyboard();
 var ENEMY_MAXDX = METER * 5;
 var ENEMY_ACCEL = ENEMY_MAXDX * 2;
 
+var spawnTimer = 1;
+
 var enemies = [];
 
 var ENEMY_MAXDX = METER * 5;
