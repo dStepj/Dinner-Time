@@ -39,7 +39,7 @@ var SCREEN_WIDTH = canvas.width;
 var SCREEN_HEIGHT = canvas.height;
 
 //STAGE/MAP/LEVEL VARIABLES//
-var LAYER_COUNT = 0;
+var LAYER_COUNT = 1;
 var MAP = { tw: 20, th: 20};
 var TILE = 32;
 var TILESET_TILE = TILE * 1
@@ -160,7 +160,7 @@ function cellAtpixelCoord(layer, x,y)
 function drawMap()
 {
 	console.log("Is the map drawing?");
-	for(var layerIdx=0; layerIdx<LAYER_COUNT; layerIdx++)
+	for(var layerIdx=0; layerIdx < LAYER_COUNT; layerIdx++)
 	{
 		var idx = 0;		// i add this *Rene
 		for( var y = 0; y < level1.layers[layerIdx].height; y++)
@@ -177,7 +177,31 @@ function drawMap()
 				idx++;
 			}
 		}
+		console.log("Loop complete");
 	}
+}
+
+function drawMapLayer(layer)
+{
+	console.log("Is the map drawing?");
+
+		console.log("layer is = " + layer);
+		var idx = 0;
+		for( var y = 0; y < level1.layers[layer].height; y++)
+		{
+			for( var x = 0; x < level1.layers[layer].width; x++)
+			{
+				if(level1.layers[layer].data[idx] !=0 )
+				{
+					var tileIndex = level1.layers[layer].data[idx] - 1;
+					var sx = TILESET_PADDING + (tileIndex % TILESET_COUNT_X) * (TILESET_TILE + TILESET_SPACING);
+					var sy = TILESET_PADDING + (Math.floor(tileIndex / TILESET_COUNT_X)) * (TILESET_TILE + TILESET_SPACING);
+					context.drawImage(tileset, sx, sy, TILESET_TILE, TILESET_TILE, x*TILE, (y-1)*TILE, TILESET_TILE, TILESET_TILE);
+				}
+				idx++;
+			}
+		}
+		console.log("Draw complete");
 }
 
 var splashTimer = 5;
@@ -222,7 +246,7 @@ function runGame(deltaTime)
 			volume: 0.1
 		} );
 
-	drawMap();
+	drawMapLayer(0);
 	/*score += deltaTime;*/
 	for (var i = 0; i < enemies.length; i++) 
 	{
@@ -231,7 +255,7 @@ function runGame(deltaTime)
 		enemy[i].update(deltaTime);
 		enemy[i].draw();
 
-		for (var i = o; i< enemies.lenght; i++) 
+		for (var i = o; i< enemies.length; i++) 
 		{
 			enemies[i].update(deltaTime);
 			enemies[i].draw();
@@ -278,7 +302,7 @@ function DrawUI()
 	context.fillText("SCORE:", 5, 634);
 	context.fillStyle = "red";
 	context.font="24px Impact";
-	context.fillText(scoreCount.toFixed(1).toString(), 75, 634);
+	context.fillText(scoreCount.toFixed().toString(), 75, 634);
 
 }
 
