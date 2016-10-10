@@ -167,8 +167,13 @@ function cellAtpixelCoord(layer, x,y)
 
 function drawMap()
 {
+<<<<<<< HEAD
 	console.log("layerIdx = " + layerIdx++);
 	for(var layerIdx = 0; layerIdx < LAYER_COUNT; layerIdx++)
+=======
+	console.log("Is the map drawing?");
+	for(var layerIdx=0; layerIdx < LAYER_COUNT; layerIdx++)
+>>>>>>> origin/master
 	{
 		var idx = 0;		// i add this *Rene
 		for( var y = 0; y < level1.layers[layerIdx].height; y++)
