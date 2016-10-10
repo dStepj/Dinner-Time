@@ -19,6 +19,8 @@ var Player = function()
 	this.height = 163;	
 
 	this.image.src = "hero.png";   
+
+    this.lives = MAX_LIVES;
 };
 
 Player.prototype.update = function(deltaTime)

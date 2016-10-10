@@ -8,11 +8,11 @@ sfxWall = new Howl(
     volume: 0.3,
 });
 
-var Enemy1 = function() 
+var Enemy1 = function(x,y) 
 {	
 	this.image = document.createElement("img");
-	this.x = canvas.width/2;
-	this.y = canvas.height/2; 	
+	this.x = x;
+	this.y = y;	
 	this.width = 159;
 	this.height = 163;	
 
@@ -39,7 +39,7 @@ Enemy1.prototype.draw = function ()
     //this.sprite.draw(context, this.position.x -worldOffsetX, this.position.y);
     context.save();
     context.translate(this.x, this.y);
-    context.rotate(this.rotation);
+    //context.rotate(this.rotation);
     context.drawImage(this.image, -this.width / 2, -this.height / 2);
     context.restore();
 

@@ -34,20 +34,29 @@ var objects = [];
 //SAVE STARTING TIME (USED TO CALCULATE ELAPSED TIME)
 var startTime = Date.now();
 
-animate();
+//animate();
 
 function spawnRandomObject()
 {
-    var food;
-
+    
+    var colour;
     if (Math.random() < 0.50)
     {
-        food = "red";
+        colour = "red";
     }
     else
     {
-        food = "blue"
+        colour = "blue"
     }
+    var food =
+    {
+        type: colour,
+        x: Math.random() * (canvas.width - 30) + 15,
+        y: spawnLineY,
+
+    image: food[Math.floor(Math.random()*food.lenght)]
+    }
+    object.push(food);
 }
 
 function animate()
@@ -83,3 +92,26 @@ for (var i = 0; i < objects.length; i++)
     object.y += spawnRateOfDescent;
     ctx.drawImage(object.food, object.x, object.y, 30,30);
 }
+
+function UpdateFood 
+{
+     var time = Date.now();
+
+    if(time > lastSpawn + spawnRate)
+    {
+        lastSpawn = time;
+        spawnRandomObject();
+    }
+
+    Drawfood();
+}
+
+function Drawfood() 
+{
+    for(var i = 0; i <object.lenght; i++)
+    {
+        context.drawImage(object[i].image,objects[i].x, objects[i].y);
+    }
+}
+
+
