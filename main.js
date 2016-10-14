@@ -86,6 +86,7 @@ var scoreCount = 0;
 
 var player = new Player();
 var keyboard = new Keyboard();
+var Food = new Food();
 
 var enemies = [];
 
@@ -138,28 +139,19 @@ function initialize()
 			}
 		}
 	}
+	
+	var enemy = new Enemy1(32,32)
+	enemies.push(enemy);
 
-	// add enemies
-	/*idx = 0;
-	for (var y = 0; y < level1.layers[LAYER_OBJECT_ENEMIES].height; y++) 
-	{
-		for (var x = 0; x < level1.layers[LAYER_OBJECT_ENEMIES].width; x++) 
+	musicBackground = new Howl(
 		{
-			if (level1.layers[LAYER_OBJECT_ENEMIES].data[idx] != 0) 
-			{
-				var px = tileToPixel(x);
-				var py = tileToPixel(y);
-				var e = new Enemy(px, py);
-				enemies.push(e);
-			}
-			idx++;
-		}
-	}*/
-
-var enemy = new Enemy1(32,32)
-enemies.push(enemy);
-
+			urls: ["Root.mp3"],
+			loop: true,
+			buffer: true,
+			volume: 0.1
+		} );
 }
+
 function cellAtpixelCoord(layer, x,y)
 {
 
@@ -167,13 +159,11 @@ function cellAtpixelCoord(layer, x,y)
 
 function drawMap()
 {
-<<<<<<< HEAD
 	console.log("layerIdx = " + layerIdx++);
 	for(var layerIdx = 0; layerIdx < LAYER_COUNT; layerIdx++)
-=======
+
 	console.log("Is the map drawing?");
 	for(var layerIdx=0; layerIdx < LAYER_COUNT; layerIdx++)
->>>>>>> origin/master
 	{
 		var idx = 0;		// i add this *Rene
 		for( var y = 0; y < level1.layers[layerIdx].height; y++)
@@ -246,6 +236,8 @@ function runGame(deltaTime)
 
 	console.log("PLAY STATE");
 	//updateFood();
+	food.update(deltaTime);
+	food.draw();
 	player.update(deltaTime);
 	player.draw();
 	enemy.update(deltaTime);

@@ -19,7 +19,11 @@ pizza.src="pizza.png";
 var watermelon = document.createElement("img");
 watermelon.src="watermelon.png";
 
+<<<<<<< HEAD
 var foodImages = [apple, burger, cake, chicken, pizza, watermelon];
+=======
+var food = [apple, burger, cake, chicken, pizza, watermelon];
+>>>>>>> origin/master
 
 //HOW OFTEN THE OBJECT WILL SPAWN (IN MILLISECONDS)
 var spawnRate = 7000;
@@ -34,18 +38,22 @@ var objects = [];
 //SAVE STARTING TIME (USED TO CALCULATE ELAPSED TIME)
 var startTime = Date.now();
 
-//animate();
+animate();
 
 function spawnRandomObject()
 {
     var colour = "";
     if (Math.random() < 0.50)
     {
-        colour = "red";
+        food = "red";
     }
     else
     {
+<<<<<<< HEAD
         colour = "blue";
+=======
+        food = "blue";
+>>>>>>> origin/master
     }
 
     var food =
@@ -54,7 +62,11 @@ function spawnRandomObject()
         x: Math.random() * (canvas.width - 30) + 15,
         y: spawnLineY,
 
+<<<<<<< HEAD
         image: foodImages[Math.floor(Math.random()*foodImages.length)]
+=======
+        image: food[Math.floor(Math.random()*food.length)]
+>>>>>>> origin/master
     }
     objects.push(food);
 }
@@ -108,7 +120,11 @@ function UpdateFood()
 
 function DrawFood()
 {
+<<<<<<< HEAD
     for(var i = 0; i < objects.length; i++)
+=======
+    for(var i = 0; i < object.length; i++)
+>>>>>>> origin/master
     {
         context.drawImage(objects[i].image,objects[i].x, objects[i].y);
     }
