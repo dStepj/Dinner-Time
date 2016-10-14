@@ -1,8 +1,6 @@
 var canvas = document.getElementById("gameCanvas");
 var context = canvas.getContext("2d");
 
-var food = [apple, burger, cake, chicken, pizza, watermelon];
-
 var apple = document.createElement("img");
 apple.src="apple.png";
 
@@ -21,6 +19,8 @@ pizza.src="pizza.png";
 var watermelon = document.createElement("img");
 watermelon.src="watermelon.png";
 
+var foodImages = [apple, burger, cake, chicken, pizza, watermelon];
+
 //HOW OFTEN THE OBJECT WILL SPAWN (IN MILLISECONDS)
 var spawnRate = 7000;
 
@@ -38,28 +38,28 @@ var startTime = Date.now();
 
 function spawnRandomObject()
 {
-    
-    var colour;
+    var colour = "";
     if (Math.random() < 0.50)
     {
         colour = "red";
     }
     else
     {
-        colour = "blue"
+        colour = "blue";
     }
+
     var food =
     {
-        type: colour,
+     type: colour,
         x: Math.random() * (canvas.width - 30) + 15,
         y: spawnLineY,
 
-    image: food[Math.floor(Math.random()*food.lenght)]
+        image: foodImages[Math.floor(Math.random()*foodImages.length)]
     }
-    object.push(food);
+    objects.push(food);
 }
 
-function animate()
+/*function animate()
 {
     var time = Date.now();
 
@@ -91,11 +91,11 @@ for (var i = 0; i < objects.length; i++)
     var object = objects[i];
     object.y += spawnRateOfDescent;
     ctx.drawImage(object.food, object.x, object.y, 30,30);
-}
+}*/
 
-function UpdateFood 
+function UpdateFood()
 {
-     var time = Date.now();
+    var time = Date.now();
 
     if(time > lastSpawn + spawnRate)
     {
@@ -103,15 +103,15 @@ function UpdateFood
         spawnRandomObject();
     }
 
-    Drawfood();
+    DrawFood();
 }
 
-function Drawfood() 
+function DrawFood()
 {
-    for(var i = 0; i <object.lenght; i++)
+    for(var i = 0; i < objects.length; i++)
     {
-        context.drawImage(object[i].image,objects[i].x, objects[i].y);
+        context.drawImage(objects[i].image,objects[i].x, objects[i].y);
     }
 }
 
-
+//collision radius
