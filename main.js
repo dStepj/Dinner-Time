@@ -58,7 +58,7 @@ var musicBackground;
 //var enemy = document.createElement("img");
 //enemy.src = "enemy1.png";
 
-var enemy = new Enemy1
+//var enemy = new Enemy(20,20);
 
 var METER = TILE;
 var GRAVITY = METER * 9.8 *6;
@@ -90,16 +90,10 @@ var keyboard = new Keyboard();
 
 var enemies = [];
 
-/*//Enemy1 inprogress
-
-//Enemy Layer costant
 var ENEMY_MAXDX = METER * 5;
 var ENEMY_ACCEL = ENEMY_MAXDX * 2;
 
-var enemies = [];
 
-var ENEMY_MAXDX = METER * 5;
-var ENEMY_ACCEL = ENEMY_MAXDX * 2;
 var enemies = [];
 var LAYER_COUNT = 1;
 var LAYER_BACKGOUND = 0;
@@ -108,7 +102,7 @@ var LAYER_BACKGOUND = 0;
 
 var LAYER_OBJECT_ENEMIES = 3;
 var LAYER_OBJECT_TRIGGERS = 4;
-//................................By Rene*/
+//................................By Rene
 
 
 
@@ -141,7 +135,7 @@ function initialize()
 		}
 	}
 	
-	var enemy = new Enemy1(32,32)
+	var enemy = new Enemy(32,32)
 	enemies.push(enemy);
 
 	musicBackground = new Howl(
@@ -165,7 +159,7 @@ function cellAtpixelCoord(layer, x,y)
 function cellAtTileCoord(layer, tx, ty) 
 {
 	//if I have an invalid tile, return yes there is a collision
-	if(ty < 0 || tx < 0 || tx > map.x || ty > map.y)
+	if(ty < 0 || tx < 0 || tx > MAP.x || ty > MAP.y)
 		return 1;
 	return cells[layer][ty][tx];
 }
@@ -259,8 +253,8 @@ function runGame(deltaTime)
 	player.update(deltaTime);
 	player.draw();
 
-	enemy.update(deltaTime);
-	enemy.draw();
+	//enemy.update(deltaTime);
+	//enemy.draw();
 
 	/*musicBackground = new Howl(
 		{
