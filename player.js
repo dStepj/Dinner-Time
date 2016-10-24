@@ -5,12 +5,10 @@ var RIGHT = 1;
 var UP = 2;
 var DOWN = 3;
 
-var MOVE_SPEED = 20;
+var MOVE_SPEED = 30;
 
 var Player = function() 
 {	
-    
-
 	this.image = document.createElement("img");
 	
     this.position = new Vector2();
@@ -29,7 +27,7 @@ var Player = function()
 
 Player.prototype.update = function(deltaTime)
 {		
-    //this.direction.set(0,0);
+    this.direction.set(0,0);
 
     this.position.set(placeOnTile(20),placeOnTile(23));
 

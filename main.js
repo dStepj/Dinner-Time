@@ -171,6 +171,11 @@ function pixelToTile(pixel)
 	return Math.floor(pixel / TILE);
 }
 
+function placeOnTile(tile)
+{
+	return Math.floor(tile * TILE);
+}
+
 function drawMap()
 {
 	console.log("layerIdx = " + layerIdx++);
@@ -221,11 +226,6 @@ function drawMapLayer(layer)
 		console.log("Draw complete");
 }
 
-function placeOnTile(tile)
-{
-	return Math.floor(tile * TILE);
-}
-
 var splashTimer = 5;
 function runSplash(deltaTime) 
 {
@@ -264,7 +264,6 @@ function runGame(deltaTime)
 	/*score += deltaTime;*/
 	for (var i = 0; i < enemies.length; i++) 
 	{
-		
 		enemies[i].update(deltaTime);
 		enemies[i].draw();
 
